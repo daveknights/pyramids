@@ -30,7 +30,7 @@ let gameTimer;
 let gameTime = 0;
 
 const App = () => {
-  const [difficulty, setDifficulty] = useState('easy');
+  const [difficulty, setDifficulty] = useState('normal');
   const [level, setLevel] = useState(1);
   const [completedLevels, setCompletedLevels] = useState([]);
   const [blockWidths, setBlockWidths] = useState(initialBlockWidths);
