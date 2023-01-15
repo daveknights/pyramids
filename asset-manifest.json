@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/pyramids/static/css/main.29734a78.css",
-    "main.js": "/pyramids/static/js/main.eb87ac76.js",
+    "main.js": "/pyramids/static/js/main.9a82604f.js",
     "index.html": "/pyramids/index.html",
     "main.29734a78.css.map": "/pyramids/static/css/main.29734a78.css.map",
-    "main.eb87ac76.js.map": "/pyramids/static/js/main.eb87ac76.js.map"
+    "main.9a82604f.js.map": "/pyramids/static/js/main.9a82604f.js.map"
   },
   "entrypoints": [
     "static/css/main.29734a78.css",
-    "static/js/main.eb87ac76.js"
+    "static/js/main.9a82604f.js"
   ]
 }
