@@ -1,38 +1,314 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Spectral:wght@800&display=swap');
+
+:root {
+  --brick-pattern: repeating-linear-gradient(90deg, #fad79e, #fad79e 2px, #cca065 2px, #cca065 38px, #965c00 38px, #965c00 40px);
+  --brick-border-bottom: solid 1px #965c00;
+  --brick-border-top: solid 2px #fad79e;
+  --engraved-colour: #aa9668;
+  --game-bg: linear-gradient(#2487dc, #90c6ef 600px, #dfc07c 600px, #e3bc81);
+  --gold-grad: linear-gradient(yellow, gold 80%, sandybrown);
+  --red-grad: linear-gradient(pink, red 80%, darkred);
+  --sand: #dfc07c;
+  --selected: #00cc99;
+  --sky-shadow: #0467bb;
+}
+
+* {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  color: gold;
+  font-family: 'Spectral', serif;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 4rem;
+  margin: 0 0 40px 2px;
+  position: absolute;
   text-align: center;
+  text-shadow: 1px 2px 1px black, -2px -1px 1px white;
+  top: 30px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h2 {
+  color: black;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  text-align: center;
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.game-bg {
+  background: var(--game-bg);
+  height: 800px;
+  margin: 50px auto 0;
+  padding: 30px;
+  position: relative;
+  width: 600px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.game-bg,
+.pyramid-container,
+.bonus-container,
+.block-stack {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: flex-end;
+}
+
+.level-container {
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  gap: 20px;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin-bottom: 20px;
+}
+
+.level,
+.bonus-level {
+  align-items: center;
+  background: var(--sand);
+  border-bottom: var(--brick-border-bottom);
+  border-top: var(--brick-border-top);
+  box-shadow: 0 2px 5px var(--sky-shadow);
+  display: flex;
+  height: 90px;
+  justify-content: center;
+}
+
+.level {
+  width: 90px;
+}
+
+.playable,
+.unlocked {
+  cursor: pointer;
+}
+
+.playable,
+.bonus-level p {
+  color: var(--engraved-colour);
+  font-size: 3rem;
+  font-weight: bold;
+  height: 90px;
+  line-height: 90px;
+  position: relative;
+  text-align: center;
+  text-shadow: 0px 1px 0px rgba(255,255,255,0.7), 0px -1px 0px rgba(0,0,0,0.7);
+  width: 100%;
+}
+
+.locked {
+  border-radius: 0 0 1px 1px;
+  height: 12px;
+  margin-top: 8px;
+  outline: solid 14px var(--engraved-colour);
+  position: relative;
+  width: 6px;
+}
+
+.locked::before {
+  border-radius: 50%;
+  content: '';
+  display: block;
+  height: 15px;
+  left: -4px;
+  outline: solid 4px var(--engraved-colour);
+  position: absolute;
+  top: -22px;
+  width: 14px;
+}
+
+.playable::before,
+.playable::after,
+.star::before,
+.star::after {
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  bottom: 8px;
+  content: '';
+  display: block;
+  right: 5px;
+  position: absolute;
+}
+
+.playable::before {
+  border-bottom: 15px solid rgba(0,0,0,0.7);
+  right: 6px;
+}
+
+.playable::after {
+  border-bottom: 15px solid var(--engraved-colour);
+}
+
+.star::before {
+  border-bottom: 15px solid #a1772d;
+  right:7px;
+}
+
+.star::after {
+  border-bottom: 15px solid gold;
+}
+
+.bonus-level {
+  position: relative;
+  width: 420px;
+}
+
+.bonus-level .locked {
+  display: inline-block;
+  margin-bottom: 6px;
+  margin-right: 40px;
+}
+
+.button-nav,
+.difficulty {
+  margin-bottom: auto;
+  margin-top: 100px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.difficulty button,
+.button-nav button {
+  background: var(--gold-grad);
+  border: solid 5px white;
+  border-radius: 10px;
+  box-shadow: 0 0 5px black, inset 0 0 1px 1px black;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.5rem;
+  height: 60px;
+  width: 150px;
+}
+
+button span {
+  display: inline-block;
+}
+.return-span {
+  margin-right: 9px;
+}
+.next-span {
+  margin-left: 12px;
+}
+
+.difficulty {
+  flex-wrap: wrap;
+  margin-top: 40px;
+  width: 420px;
+}
+
+.difficulty button {
+  color: grey;
+}
+
+.difficulty button:hover {
+  color: black;
+}
+
+.difficulty button.selected {
+  border-color: var(--selected);
+  color: black;
+  cursor: auto;
+}
+
+.pyramid-container {
+  padding-bottom: 130px;
+}
+
+.bonus-container {
+  padding-bottom: 150px;
+}
+
+.block-line {
+  background: var(--brick-pattern);
+  border-bottom: var(--brick-border-bottom);
+  border-top: var(--brick-border-top);
+  cursor: pointer;
+  height: 30px;
+  width: 300px;
+}
+
+.capstone {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 60px;
+  width: 80px;
+}
+
+.capstone::before,
+.capstone::after {
+  background: var(--brick-pattern);
+  border-bottom: var(--brick-border-bottom);
+  border-top: var(--brick-border-top);
+  content: '';
+  height: 30px;
+}
+
+.capstone::before {
+  width: 40px;
+}
+
+.capstone::after {
+  width: 80px;
+}
+
+.message {
   color: white;
+  bottom: 80px;
+  font-family: 'Spectral', serif;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3.5rem;
+  position: absolute;
+  text-align: center;
+  -webkit-text-stroke: 2px;
+  -webkit-text-stroke-color: black;
+  width: 420px;
 }
 
-.App-link {
-  color: #61dafb;
+.message::before {
+  content: '';
+  display: block;
+  height: 440px;
+  width: 420px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+progress[value]::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+progress.time-indicator {
+  -webkit-appearance: none;
+  appearance: none;
+  border: solid 1px #555;
+  color: gold;
+  height: 20px;
+  width: 100%;
+}
+progress.time-indicator.final-second {
+  color: red;
+}
+
+progress.time-indicator::-webkit-progress-value {
+  background: var(--gold-grad);
+}
+progress.time-indicator::-moz-progress-bar {
+  background: var(--gold-grad);
+}
+progress.time-indicator.final-second::-webkit-progress-value {
+  background: var(--red-grad);
+}
+progress.time-indicator.final-second::-moz-progress-bar {
+  background: var(--gold-grad);
 }
